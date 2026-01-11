@@ -35,69 +35,70 @@ class QuestionForm(StatesGroup):
     confirm_question = State()
 
 
+
 # Главное меню
 main_menu_buttons = [
-    [KeyboardButton(text='О Connect\'e'), KeyboardButton(text='Connect • Карьера')],
-    [KeyboardButton(text='Откликнуться'), KeyboardButton(text='Контакты')],
-    [KeyboardButton(text='Задать вопрос')]
+    [KeyboardButton(text='ℹ️ Об Connect\'e'), KeyboardButton(text='💼 Connect • Карьера')],
+    [KeyboardButton(text='📝 Откликнуться'), KeyboardButton(text='📞 Контакты')],
+    [KeyboardButton(text='❓ Задать вопрос')]
 ]
 main_menu = ReplyKeyboardMarkup(keyboard=main_menu_buttons, resize_keyboard=True)
 
 # Кнопка старт
 start_button = ReplyKeyboardMarkup(
-    keyboard=[[KeyboardButton(text='Старт')]],
+    keyboard=[[KeyboardButton(text='🚀 Старт')]],
     resize_keyboard=True
 )
 
-# Раздел "О Connect'e"
-about_connect_buttons = [[KeyboardButton(text='В меню')]]
+# Раздел "Об Connect'e"
+about_connect_buttons = [[KeyboardButton(text='◀️ В меню')]]
 about_connect = ReplyKeyboardMarkup(keyboard=about_connect_buttons, resize_keyboard=True)
 
 # Раздел "Connect • Карьера"
 career_info_buttons = [
-    [KeyboardButton(text='Откликнуться'), KeyboardButton(text='В меню')]
+    [KeyboardButton(text='📝 Откликнуться'), KeyboardButton(text='◀️ В меню')]
 ]
 career_info = ReplyKeyboardMarkup(keyboard=career_info_buttons, resize_keyboard=True)
 
 # Кнопки специализации
 specialization_buttons = [
-    [KeyboardButton(text='Дизайнер'), KeyboardButton(text='Менеджер')],
-    [KeyboardButton(text='Руководитель'), KeyboardButton(text='Продюсер')],
-    [KeyboardButton(text='Режиссёр'), KeyboardButton(text='Другое')]
+    [KeyboardButton(text='🎨 Дизайнер'), KeyboardButton(text='👔 Менеджер')],
+    [KeyboardButton(text='📊 Руководитель'), KeyboardButton(text='🛠️ Продюсер')],
+    [KeyboardButton(text='📋 Режиссер'), KeyboardButton(text='📌 Другое')]
 ]
 specialization_keyboard = ReplyKeyboardMarkup(keyboard=specialization_buttons, resize_keyboard=True)
 
 # Кнопки да/нет
 yes_no_buttons = [
-    [KeyboardButton(text='Да'), KeyboardButton(text='Нет')]
+    [KeyboardButton(text='✅ Да'), KeyboardButton(text='❌ Нет')]
 ]
 yes_no_keyboard = ReplyKeyboardMarkup(keyboard=yes_no_buttons, resize_keyboard=True)
 
 # Кнопки подтверждения анкеты
 confirm_buttons = [
-    [KeyboardButton(text='Отправить'), KeyboardButton(text='Изменить')]
+    [KeyboardButton(text='✈️ Отправить'), KeyboardButton(text='✏️ Изменить')]
 ]
 confirm_keyboard = ReplyKeyboardMarkup(keyboard=confirm_buttons, resize_keyboard=True)
 
 # Кнопки для выбора поля редактирования
 edit_field_buttons = [
-    [KeyboardButton(text='Имя'), KeyboardButton(text='Город')],
-    [KeyboardButton(text='Возраст'), KeyboardButton(text='Специализация')],
-    [KeyboardButton(text='Опыт'), KeyboardButton(text='Опыт с гос.мероприятиями')],
-    [KeyboardButton(text='Портфолио'), KeyboardButton(text='Контакты')],
-    [KeyboardButton(text='Отмена')]
+    [KeyboardButton(text='📛 Имя'), KeyboardButton(text='🏙️ Город')],
+    [KeyboardButton(text='🎂 Возраст'), KeyboardButton(text='🎯 Специализация')],
+    [KeyboardButton(text='⏰ Опыт'), KeyboardButton(text='🏛️ Опыт с гос.мероприятиями')],
+    [KeyboardButton(text='🗂️ Портфолио'), KeyboardButton(text='📞 Контакты')],
+    [KeyboardButton(text='❌ Отмена')]
 ]
 edit_field_keyboard = ReplyKeyboardMarkup(keyboard=edit_field_buttons, resize_keyboard=True)
 
 # Кнопки согласия
 consent_buttons = [
-    [KeyboardButton(text='Согласен(на)'), KeyboardButton(text='Отмена')]
+    [KeyboardButton(text='✅ Согласен(на)'), KeyboardButton(text='❌ Отмена')]
 ]
 consent_keyboard = ReplyKeyboardMarkup(keyboard=consent_buttons, resize_keyboard=True)
 
 # Кнопки для подтверждения вопроса
 question_confirm_buttons = [
-    [KeyboardButton(text='Да, отправить HR'), KeyboardButton(text='Нет, отменить')]
+    [KeyboardButton(text='✅ Да, отправить HR'), KeyboardButton(text='❌ Нет, отменить')]
 ]
 question_confirm_keyboard = ReplyKeyboardMarkup(keyboard=question_confirm_buttons, resize_keyboard=True)
 
@@ -108,55 +109,55 @@ async def send_welcome(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
         "Привет! 👋\n\n"
-        "Мы №1 в B2G — и переносим надёжность в коммерцию. "
+        "Мы №1 в B2G – и переносим надёжность в коммерцию. "
         "Рады вашему интересу к Connect Group. Мы делаем крупные события по всей России и ищем людей, которым близки надёжность процессов и креатив.\n"
-        "Готовы познакомиться и понять, где мы можем совпасть по задачам. Нажмите «Старт», чтобы выбрать раздел, откликнуться или задать вопрос.\n\n"
+        "Готовы познакомиться и понять, где мы можем совпасть по задачам. Нажмите «Старт», чтобы выбрать раздел, отклинуться или задать вопрос.\n\n"
         "Продолжая пользоваться ботом, вы даёте согласие на обработку персональных данных, полученных через Telegram, в соответствии с нашей политикой.",
         reply_markup=start_button
     )
 
 
 # Обработка кнопки "Старт"
-@dp.message(F.text == 'Старт')
+@dp.message(F.text == '🚀 Старт')
 async def start_menu(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
-        "Выберите раздел или задайте вопрос боту. Если ответа не найдётся — мы передадим его HR.\n\n"
+        "Выберите раздел или задайте вопрос боту. Если ответа не найдётся – мы передадим его HR.\n\n"
         "Можно написать свой вопрос текстом",
         reply_markup=main_menu
     )
 
 
 # Главное меню
-@dp.message(F.text == 'О Connect\'e')
+@dp.message(F.text == 'ℹ️ Об Connect\'e')
 async def about_connect_func(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
-        "Собираем и реализуем масштабные и коммерческие события по всей стране: форумы, конгрессы, церемонии, фестивали, протокольные мероприятия. Мы №1 в B2G и переносим эту надёжность в коммерческие проекты — с креативом и человеческим теплом.\n"
-        "Кейсы, процессы и полезности смотрите в нашем TG-канале: @ConnectEvent\n"
+        "Собираем и реализуем масштабные и коммерческие события по всей стране: форумы, конгрессы, церемонии, фестивали, протокольные мероприятия. Мы №1 в B2G и переносим эту надёжность в коммерческие проекты – с креативом и человеческим теплом.\n"
+        "Ключсы, процессы и полезности смотрите в нашем TG-канале: @ConnectEvent\n"
         "Сайт: connect-event.ru\n\n"
-        "Если хотите присоединиться — вернитесь в меню и нажмите «Откликнуться».",
+        "Если хотите присоединиться – вернитесь в меню и нажмите «Откликнуться».",
         reply_markup=about_connect
     )
 
 
-@dp.message(F.text == 'Connect • Карьера')
+@dp.message(F.text == '💼 Connect • Карьера')
 async def career_func(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
-        "Этот бот — ваш быстрый вход в экосистему Connect: вакансии, проектная занятость и фриланс.\n"
+        "Этот бот – ваш быстрый вход в экосистему Connect: вакансии, проектная занятость и фрилан.\n"
         "Как это работает:\n"
-        "1. Вы заполняете анкету и делитесь портфолио.\n"
-        "2. Если профиль откликается нашим задачам, HR пригласит на беседу — в офисе или онлайн.\n"
-        "3. Если после разговора и просмотра кейсов случится полный мэтч: то фиксируем формат работы и ставки.\n"
-        "Дальше — подключаем к релевантным проектам.\n\n"
+        "1. Вы заполните анкету и делитесь портфолио.\n"
+        "2. Если профиль отклика на наши задачам, HR пригласит на беседу – в офисе или онлайн.\n"
+        "3. Если после разговора и просмотра ключей случится полный мьстч: то фиксируем формат работы и ставки.\n"
+        "Дальше – подключаем к релевантным проектам.\n\n"
         "Готовы познакомиться ближе? Нажмите «Откликнуться».",
         reply_markup=career_info
     )
 
 
 # Возврат в главное меню
-@dp.message(F.text == 'В меню')
+@dp.message(F.text == '◀️ В меню')
 async def back_to_main_menu(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
@@ -166,39 +167,39 @@ async def back_to_main_menu(message: types.Message, state: FSMContext):
 
 
 # Обработчик для кнопки "Откликнуться"
-@dp.message(F.text == 'Откликнуться')
+@dp.message(F.text == '📝 Откликнуться')
 async def apply_func(message: types.Message, state: FSMContext):
     await state.clear()
     await state.set_state(ApplyForm.name)
     await message.answer(
-        "Отлично! Всего несколько вопросов — и мы поймём, куда вас пригласить в первую очередь. Можно отвечать текстом или выбирать варианты.",
+        "Отлично! Всего несколько вопросов – и мы поймём, куда вас пригласить в первую очередь. Можно отвечать текстом или выбирать варианты.",
         reply_markup=types.ReplyKeyboardRemove()
     )
     await message.answer("Как вас зовут? (ФИО или имя и фамилия)")
 
 
 # Обработчик для кнопки "Контакты"
-@dp.message(F.text == 'Контакты')
+@dp.message(F.text == '📞 Контакты')
 async def contacts_func(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
         "По вопросам найма и проектной занятости:\n"
-        "Елизавета, HR Connect'а — @diosish",
+        "Елизавета, HR Connect'а – @diosish",
         reply_markup=main_menu
     )
 
 
 # Обработчик для кнопки "Задать вопрос"
-@dp.message(F.text == 'Задать вопрос')
+@dp.message(F.text == '❓ Задать вопрос')
 async def question_func(message: types.Message, state: FSMContext):
     await state.clear()
     await state.set_state(QuestionForm.waiting_question)
     await message.answer(
-        "Напишите ваш вопрос сюда текстом. Бот попробует подобрать ответ. Если не найдём — передадим HR и вернёмся с ответом.\n\n"
+        "Напишите ваш вопрос сюда текстом. Бот попробует подобрать ответ. Если не найдём – передадим HR и вернём с ответом.\n\n"
         "Примеры:\n"
         "• Какие у вас проекты в коммерции?\n"
         "• Есть ли вакансии менеджеров в Москве?\n"
-        "• Как попасть во фриланс-пул?",
+        "• Как попасть во фрилан-пул?",
         reply_markup=types.ReplyKeyboardRemove()
     )
 
@@ -216,7 +217,7 @@ async def receive_question(message: types.Message, state: FSMContext):
 
 
 # Подтверждение отправки вопроса
-@dp.message(QuestionForm.confirm_question, F.text == 'Да, отправить HR')
+@dp.message(QuestionForm.confirm_question, F.text == '✅ Да, отправить HR')
 async def confirm_send_question(message: types.Message, state: FSMContext):
     data = await state.get_data()
     question = data.get('question', '')
@@ -236,15 +237,15 @@ async def confirm_send_question(message: types.Message, state: FSMContext):
     )
 
     await message.answer(
-        "Ваш вопрос передан HR Connect. Если потребуется уточнение — свяжемся с вами.\n"
-        "Если хотите ускорить процесс — напишите @diosish.",
+        "Ваш вопрос передан HR Connect. Если потребуется уточнение – свяжемся с вами.\n"
+        "Если хотите ускорить процесс – напишите @diosish.",
         reply_markup=main_menu
     )
     await state.clear()
 
 
 # Отмена отправки вопроса
-@dp.message(QuestionForm.confirm_question, F.text == 'Нет, отменить')
+@dp.message(QuestionForm.confirm_question, F.text == '❌ Нет, отменить')
 async def cancel_send_question(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
@@ -256,7 +257,7 @@ async def cancel_send_question(message: types.Message, state: FSMContext):
 # Обработчик для имени
 @dp.message(ApplyForm.name)
 async def process_name(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -273,7 +274,7 @@ async def process_name(message: types.Message, state: FSMContext):
 # Обработчик для города
 @dp.message(ApplyForm.city)
 async def process_city(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -284,13 +285,13 @@ async def process_city(message: types.Message, state: FSMContext):
     else:
         await state.update_data(city=message.text)
         await state.set_state(ApplyForm.age)
-        await message.answer("Сколько вам лет? (можно числом)")
+        await message.answer("Сколько вам лет? (можно число)")
 
 
 # Обработчик для возраста
 @dp.message(ApplyForm.age)
 async def process_age(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -310,11 +311,11 @@ async def process_age(message: types.Message, state: FSMContext):
 # Обработчик для специализации
 @dp.message(ApplyForm.specialization)
 async def process_specialization(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
-    if message.text == 'Другое':
+    if message.text == '📌 Другое':
         await message.answer("Напишите свою роль:", reply_markup=types.ReplyKeyboardRemove())
         return
 
@@ -327,7 +328,7 @@ async def process_specialization(message: types.Message, state: FSMContext):
         await state.set_state(ApplyForm.experience)
         await message.answer(
             "Сколько лет вы в ивенте и какие типы мероприятий делали?\n"
-            "(кратко: «5 лет — форумы, конгрессы, концерты»)",
+            "(кратко: «5 лет – форумы, конгрессы, концерты»)",
             reply_markup=types.ReplyKeyboardRemove()
         )
 
@@ -335,7 +336,7 @@ async def process_specialization(message: types.Message, state: FSMContext):
 # Обработчик для опыта
 @dp.message(ApplyForm.experience)
 async def process_experience(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -355,14 +356,14 @@ async def process_experience(message: types.Message, state: FSMContext):
 # Обработчик для опыта с гос. мероприятиями
 @dp.message(ApplyForm.gov_experience)
 async def process_gov_experience(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
     data = await state.get_data()
 
-    if message.text == 'Да' and 'editing_field' not in data:
-        await state.update_data(gov_experience_answer='Да')
+    if message.text == '✅ Да' and 'editing_field' not in data:
+        await state.update_data(gov_experience_answer='✅ Да')
         await message.answer(
             "Уточните, с какими (уровень/роль/регион):",
             reply_markup=types.ReplyKeyboardRemove()
@@ -370,21 +371,21 @@ async def process_gov_experience(message: types.Message, state: FSMContext):
         return
 
     if 'editing_field' in data:
-        if message.text == 'Да':
-            await state.update_data(gov_experience_answer='Да')
+        if message.text == '✅ Да':
+            await state.update_data(gov_experience_answer='✅ Да')
             await message.answer("Уточните, с какими (уровень/роль/регион):")
             return
         await state.update_data(gov_experience=message.text, editing_field=None)
         await show_confirmation(message, state)
     else:
         gov_exp = message.text
-        if data.get('gov_experience_answer') == 'Да':
-            gov_exp = f"Да ({message.text})"
+        if data.get('gov_experience_answer') == '✅ Да':
+            gov_exp = f"✅ Да ({message.text})"
 
         await state.update_data(gov_experience=gov_exp)
         await state.set_state(ApplyForm.portfolio)
         await message.answer(
-            "Портфолио или резюме — дайте, пожалуйста, ссылку.\n"
+            "Портфолио или резюме – дайте, пожалуйста, ссылку.\n"
             "(можно прикрепить файл или написать «нет»)",
             reply_markup=types.ReplyKeyboardRemove()
         )
@@ -393,7 +394,7 @@ async def process_gov_experience(message: types.Message, state: FSMContext):
 # Обработчик для портфолио (текст)
 @dp.message(ApplyForm.portfolio, F.text)
 async def process_portfolio_text(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -438,7 +439,7 @@ async def process_portfolio_document(message: types.Message, state: FSMContext):
 # Обработчик для портфолио (фото)
 @dp.message(ApplyForm.portfolio, F.photo)
 async def process_portfolio_photo(message: types.Message, state: FSMContext):
-    photo = message.photo[-1]  # Берём фото наилучшего качества
+    photo = message.photo[-1]
     file_info = {
         'type': 'photo',
         'file_id': photo.file_id,
@@ -465,7 +466,7 @@ async def process_portfolio_photo(message: types.Message, state: FSMContext):
 # Обработчик для контактов
 @dp.message(ApplyForm.contact)
 async def process_contact(message: types.Message, state: FSMContext):
-    if message.text == 'В меню':
+    if message.text == '◀️ В меню':
         await back_to_main_menu(message, state)
         return
 
@@ -482,7 +483,6 @@ async def process_contact(message: types.Message, state: FSMContext):
 async def show_confirmation(message: types.Message, state: FSMContext):
     user_data = await state.get_data()
 
-    # Определяем текст портфолио
     portfolio_text = user_data.get('portfolio', 'не указано')
     portfolio_file = user_data.get('portfolio_file')
     if portfolio_file:
@@ -490,7 +490,7 @@ async def show_confirmation(message: types.Message, state: FSMContext):
 
     await state.set_state(ApplyForm.confirm)
     await message.answer(
-        f"Спасибо! Проверьте, всё ли верно👇\n\n"
+        f"Спасибо! Проверьте, всё ли верно?🔍\n\n"
         f"• Имя: {user_data.get('name', 'не указано')}\n"
         f"• Город: {user_data.get('city', 'не указано')}\n"
         f"• Возраст: {user_data.get('age', 'не указано')}\n"
@@ -505,7 +505,7 @@ async def show_confirmation(message: types.Message, state: FSMContext):
 
 
 # Обработчик для кнопки "Отправить"
-@dp.message(ApplyForm.confirm, F.text == "Отправить")
+@dp.message(ApplyForm.confirm, F.text == "✈️ Отправить")
 async def confirm_application(message: types.Message, state: FSMContext):
     await message.answer(
         "Подтверждаю, что предоставил(а) данные добровольно и согласен(на) на их обработку для целей найма и проектного взаимодействия с Connect Group.",
@@ -514,7 +514,7 @@ async def confirm_application(message: types.Message, state: FSMContext):
 
 
 # Обработчик согласия на обработку данных
-@dp.message(ApplyForm.confirm, F.text == "Согласен(на)")
+@dp.message(ApplyForm.confirm, F.text == "✅ Согласен(на)")
 async def send_application(message: types.Message, state: FSMContext):
     user_data = await state.get_data()
 
@@ -522,13 +522,12 @@ async def send_application(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
     user_name = message.from_user.full_name
 
-    # Формируем текст анкеты
     application_text = (
         f"📋 Новая анкета:\n\n"
         f"👤 Пользователь Telegram: {user_name}\n"
         f"🔗 Тег: {user_tag}\n"
         f"🆔 ID чата: {user_id}\n\n"
-        f"━━━━━━━━━━━━━━━━━━━━\n\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n\n"
         f"Имя: {user_data.get('name', 'не указано')}\n"
         f"Город: {user_data.get('city', 'не указано')}\n"
         f"Возраст: {user_data.get('age', 'не указано')}\n"
@@ -539,10 +538,8 @@ async def send_application(message: types.Message, state: FSMContext):
         f"Контакты: {user_data.get('contact', 'не указано')}"
     )
 
-    # Отправляем текстовые данные HR
     await bot.send_message(HR_CHAT_ID, application_text)
 
-    # Если есть прикрепленный файл - отправляем его
     portfolio_file = user_data.get('portfolio_file')
     if portfolio_file:
         try:
@@ -562,15 +559,15 @@ async def send_application(message: types.Message, state: FSMContext):
             logging.error(f"Ошибка при отправке файла HR: {e}")
 
     await message.answer(
-        "Анкета отправлена HR Connect'а. Если будет мэтч с ближайшими задачами — свяжемся с вами.\n"
-        "Пока ждёте — загляните в наш канал @ConnectEvent: там наши кейсы и все внутренние процессы.",
+        "Анкета отправлена HR Connect'а. Если будет мьстч с ближайшими задачам – свяжемся с вами.\n"
+        "Пока ждёте – загляните в наш канал @ConnectEvent: там наши ключсы и все внутренние процессы.",
         reply_markup=main_menu
     )
     await state.clear()
 
 
 # Обработчик для кнопки "Изменить"
-@dp.message(ApplyForm.confirm, F.text == "Изменить")
+@dp.message(ApplyForm.confirm, F.text == "✏️ Изменить")
 async def edit_application(message: types.Message, state: FSMContext):
     await state.set_state(ApplyForm.edit_field)
     await message.answer(
@@ -582,20 +579,20 @@ async def edit_application(message: types.Message, state: FSMContext):
 # Обработчик выбора поля для редактирования
 @dp.message(ApplyForm.edit_field)
 async def select_field_to_edit(message: types.Message, state: FSMContext):
-    if message.text == 'Отмена':
+    if message.text == '❌ Отмена':
         await show_confirmation(message, state)
         return
 
     field_mapping = {
-        'Имя': ('name', ApplyForm.name, 'Введите новое имя:'),
-        'Город': ('city', ApplyForm.city, 'Введите новый город:'),
-        'Возраст': ('age', ApplyForm.age, 'Введите новый возраст:'),
-        'Специализация': ('specialization', ApplyForm.specialization, 'Укажите новую специализацию:'),
-        'Опыт': ('experience', ApplyForm.experience, 'Опишите опыт заново:'),
-        'Опыт с гос.мероприятиями': ('gov_experience', ApplyForm.gov_experience,
+        '📛 Имя': ('name', ApplyForm.name, 'Введите новое имя:'),
+        '🏙️ Город': ('city', ApplyForm.city, 'Введите новый город:'),
+        '🎂 Возраст': ('age', ApplyForm.age, 'Введите новый возраст:'),
+        '🎯 Специализация': ('specialization', ApplyForm.specialization, 'Укажите новую специализацию:'),
+        '⏰ Опыт': ('experience', ApplyForm.experience, 'Опишите опыт заново:'),
+        '🏛️ Опыт с гос.мероприятиями': ('gov_experience', ApplyForm.gov_experience,
                                      'Есть ли опыт с государственными мероприятиями?'),
-        'Портфолио': ('portfolio', ApplyForm.portfolio, 'Укажите новое портфолио (ссылку, файл или фото):'),
-        'Контакты': ('contact', ApplyForm.contact, 'Введите новые контакты:')
+        '🗂️ Портфолио': ('portfolio', ApplyForm.portfolio, 'Укажите новое портфолио (ссылку, файл или фото):'),
+        '📞 Контакты': ('contact', ApplyForm.contact, 'Введите новые контакты:')
     }
 
     if message.text in field_mapping:
@@ -612,7 +609,7 @@ async def select_field_to_edit(message: types.Message, state: FSMContext):
 
 
 # Обработка отмены при согласии
-@dp.message(ApplyForm.confirm, F.text == "Отмена")
+@dp.message(ApplyForm.confirm, F.text == "❌ Отмена")
 async def cancel_consent(message: types.Message, state: FSMContext):
     await show_confirmation(message, state)
 
@@ -647,4 +644,5 @@ async def main():
 
 
 if __name__ == '__main__':
+
     asyncio.run(main())
