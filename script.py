@@ -5,16 +5,29 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.filters import Command
+import gspread
+from google.oauth2.service_account import Credentials
+from datetime import datetime
 import asyncio
 import logging
 
 API_TOKEN = os.environ.get('TOKEN_BOT')
-HR_CHAT_ID = 363258880
+HR_CHAT_ID = 944196754
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 emoji_id = "5377380847949217501"
+
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+CREDS = Credentials.from_service_account_file(
+    "service_account.json",
+    scopes=SCOPES
+)
+gc = gspread.authorize(CREDS)
+
+SPREADSHEET_ID = "1_OZGbhChP2ZAp2RoA-hTNG1vwncR3_ep0TN-T_IZEHs"
+worksheet = gc.open_by_key(SPREADSHEET_ID).sheet1
 
 # Состояния для анкеты
 class ApplyForm(StatesGroup):
@@ -35,7 +48,20 @@ class QuestionForm(StatesGroup):
     waiting_question = State()
     confirm_question = State()
 
-
+def save_to_google_sheet(user_data, message):
+    worksheet.append_row([
+        datetime.now().strftime("%d.%m.%Y %H:%M"),
+        user_data.get("name"),
+        user_data.get("city"),
+        user_data.get("age"),
+        user_data.get("specialization"),
+        user_data.get("experience"),
+        user_data.get("gov_experience"),
+        user_data.get("portfolio"),
+        user_data.get("contact"),
+        f"@{message.from_user.username}" if message.from_user.username else "",
+        message.from_user.id
+    ])
 
 # Главное меню
 main_menu_buttons = [
@@ -563,6 +589,10 @@ async def send_application(message: types.Message, state: FSMContext):
         "Пока ждёте – загляните в наш канал @ConnectEvent: там наши кейсы и все внутренние процессы.",
         reply_markup=main_menu
     )
+    try:
+        save_to_google_sheet(user_data, message)
+    except Exception as e:
+        logging.error(f"Ошибка записи в Google Sheets: {e}")
     await state.clear()
 
 
@@ -613,7 +643,6 @@ async def select_field_to_edit(message: types.Message, state: FSMContext):
 async def cancel_consent(message: types.Message, state: FSMContext):
     await show_confirmation(message, state)
 
-
 # Обработчик нераспознанных сообщений (должен быть последним)
 @dp.message()
 async def handle_unrecognized(message: types.Message, state: FSMContext):
@@ -646,6 +675,7 @@ async def main():
 if __name__ == '__main__':
 
     asyncio.run(main())
+
 
 
 
