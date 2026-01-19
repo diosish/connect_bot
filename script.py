@@ -1,3 +1,4 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             script.py
 import os
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.fsm.context import FSMContext
@@ -8,12 +9,12 @@ import asyncio
 import logging
 
 API_TOKEN = os.environ.get('TOKEN_BOT')
-HR_CHAT_ID = 944196754
+HR_CHAT_ID = 363258880
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
-
+emoji_id = "5377380847949217501"
 
 # Состояния для анкеты
 class ApplyForm(StatesGroup):
@@ -38,7 +39,7 @@ class QuestionForm(StatesGroup):
 
 # Главное меню
 main_menu_buttons = [
-    [KeyboardButton(text='ℹ️ О Connect\'e'), KeyboardButton(text='💼 Connect • Карьера')],
+    [KeyboardButton(text='ℹ️ О Connect\'e'), KeyboardButton(text='💼 Connect • Фриланс')],
     [KeyboardButton(text='📝 Откликнуться'), KeyboardButton(text='📞 Контакты')],
     [KeyboardButton(text='❓ Задать вопрос')]
 ]
@@ -62,8 +63,8 @@ career_info = ReplyKeyboardMarkup(keyboard=career_info_buttons, resize_keyboard=
 
 # Кнопки специализации
 specialization_buttons = [
-    [KeyboardButton(text='🎨 Дизайнер'), KeyboardButton(text='👔 Менеджер')],
-    [KeyboardButton(text='📊 Руководитель'), KeyboardButton(text='🛠️ Продюсер')],
+    [KeyboardButton(text='🎨 Дизайнер'), KeyboardButton(text='👔 Менеджер/Продюсер')],
+    [KeyboardButton(text='📊 Руководитель'), KeyboardButton(text='🛠️ Креатор')],
     [KeyboardButton(text='📋 Режиссер'), KeyboardButton(text='📌 Другое')]
 ]
 specialization_keyboard = ReplyKeyboardMarkup(keyboard=specialization_buttons, resize_keyboard=True)
@@ -141,16 +142,16 @@ async def about_connect_func(message: types.Message, state: FSMContext):
     )
 
 
-@dp.message(F.text == '💼 Connect • Карьера')
+@dp.message(F.text == '💼 Connect • Фриланс')
 async def career_func(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
-        "Этот бот — ваш быстрый вход в экосистему Connect: вакансии, проектная занятость и фриланс.\n"
+        "Этот бот — ваш быстрый вход в проектную занятость с Connect Group.\n"
         "Как это работает:\n"
         "1. Вы заполняете анкету и делитесь портфолио.\n"
         "2. Если профиль откликается нашим задачам, HR пригласит на беседу — в офисе или онлайн.\n"
         "3. Если после разговора и просмотра кейсов случится полный мэтч: то фиксируем формат работы и ставки.\n"
-        "Дальше — подключаем к релевантным проектам.\n\n"
+        "Дальше — подключаем к релевантным проектам.\n\n",
         reply_markup=career_info
     )
 
@@ -183,7 +184,7 @@ async def contacts_func(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer(
         "По вопросам найма и проектной занятости:\n"
-        "Елизавета, HR Connect'а – @diosish",
+        "Елизавета, HR Connect'а – @liza_supereko",
         reply_markup=main_menu
     )
 
@@ -198,7 +199,7 @@ async def question_func(message: types.Message, state: FSMContext):
         "Примеры:\n"
         "• Какие у вас проекты в коммерции?\n"
         "• Есть ли вакансии менеджеров в Москве?\n"
-        "• Как попасть во фрилан-пул?",
+        "• Как попасть во фриланс-пул?",
         reply_markup=types.ReplyKeyboardRemove()
     )
 
@@ -237,7 +238,7 @@ async def confirm_send_question(message: types.Message, state: FSMContext):
 
     await message.answer(
         "Ваш вопрос передан HR Connect. Если потребуется уточнение – свяжемся с вами.\n"
-        "Если хотите ускорить процесс – напишите @diosish.",
+        "Если хотите ускорить процесс – напишите @liza_supereko.",
         reply_markup=main_menu
     )
     await state.clear()
@@ -558,8 +559,8 @@ async def send_application(message: types.Message, state: FSMContext):
             logging.error(f"Ошибка при отправке файла HR: {e}")
 
     await message.answer(
-        "Анкета отправлена HR Connect'а. Если будет мьстч с ближайшими задачам – свяжемся с вами.\n"
-        "Пока ждёте – загляните в наш канал @ConnectEvent: там наши ключсы и все внутренние процессы.",
+        "Анкета отправлена HR Connect'а. Если будет метч с ближайшими задачами – свяжемся с вами.\n"
+        "Пока ждёте – загляните в наш канал @ConnectEvent: там наши кейсы и все внутренние процессы.",
         reply_markup=main_menu
     )
     await state.clear()
@@ -645,4 +646,8 @@ async def main():
 if __name__ == '__main__':
 
     asyncio.run(main())
+
+
+
+
 
