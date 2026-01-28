@@ -27,7 +27,9 @@ CREDS = Credentials.from_service_account_file(
 gc = gspread.authorize(CREDS)
 
 SPREADSHEET_ID = "1_OZGbhChP2ZAp2RoA-hTNG1vwncR3_ep0TN-T_IZEHs"
-worksheet = gc.open_by_key(SPREADSHEET_ID).sheet1
+sh = gc.open_by_key(SPREADSHEET_ID)
+worksheet = sh.worksheet("Новые отклики (не разобранные)")
+
 
 # Состояния для анкеты
 class ApplyForm(StatesGroup):
@@ -411,8 +413,7 @@ async def process_gov_experience(message: types.Message, state: FSMContext):
         await state.update_data(gov_experience=gov_exp)
         await state.set_state(ApplyForm.portfolio)
         await message.answer(
-            "Портфолио или резюме – дайте, пожалуйста, ссылку.\n"
-            "(можно прикрепить файл или написать «нет»)",
+            "Портфолио или резюме, пожалуйста укажите ссылку.\n",
             reply_markup=types.ReplyKeyboardRemove()
         )
 
@@ -675,6 +676,7 @@ async def main():
 if __name__ == '__main__':
 
     asyncio.run(main())
+
 
 
 
